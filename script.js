@@ -98,3 +98,5 @@ $.getJSON("https://mehak-carto.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20fina
         onEachFeature: onEachFeature
     }).addTo(map);
 });
+
+map.attributionControl.addAttribution('Primary Election Results 2016 &copy; <a href="https://www.kaggle.com/">Kaggle</a>');

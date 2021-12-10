@@ -1,3 +1,23 @@
+var newChart = function(labels, data) {
+    var dataLength = labels ? labels.length : 0;
+    console.log('we\'re in newChart', labels, data, backgroundColors);
+    var backgroundColors = ['rgba(235,127,134, 0.9)',
+        'rgba(206,102,147, 0.9)',
+        'rgba(129,55,83, 0.9)',
+        'rgba(211,156,131, 0.9)',
+        'rgba(153, 102, 255, 0.9)',
+        'rgba(255, 159, 64, 0.9)'
+    ];
+    var colors = [];
+    for (var i = 0; i < dataLength; i++) {
+        console.log("for loop for datalenght working");
+        colors.push(backgroundColors[i]);
+    };
+    console.log('newChart colors', colors);
+}
+
+
+
 var map = L.map('map').setView([39.0119, -98.4842], 4.5, zoomSnap = 0.1, zoomDelta = 0.1);
 L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/attributions">CARTO</a>'
@@ -102,3 +122,24 @@ $.getJSON("https://mehak-carto.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20fina
 map.attributionControl.addAttribution('Primary Election Results 2016 &copy; <a href="https://www.kaggle.com/">Kaggle</a>');
 
 var legend = L.control({ position: 'bottomright' });
+legend.onAdd = function(map) {
+    var div = L.DomUtil.create('div', 'info legend'),
+        grades = [100, 75, 50, 25, 0, 25, 50, 75, 100],
+        labels = ['<strong>Party Bent</strong>'],
+        from, to;
+    var x = 1;
+    var y = 1;
+    for (var i = 0; i < grades.length - 1; i++) {
+        from = grades[i];
+        to = grades[i + 1];
+        y++;
+        labels.push(
+            '<i style="background:' + getColor(x, x - 0.25) + '"></i> ' + from + (' to ' + to)
+        );
+        x -= 0.25;
+    }
+    div.innerHTML = labels.join('<br>');
+    return div;
+};
+
+legend.addTo(map);

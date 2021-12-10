@@ -14,6 +14,50 @@ var newChart = function(labels, data) {
         colors.push(backgroundColors[i]);
     };
     console.log('newChart colors', colors);
+    var chart = echarts.init(document.getElementById('main'));
+    // var chart = echarts.init(dom, 'customed');
+    var url = "https://mehak-carto.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20finalest%20&format=geojson&filename=finalest"
+        // chart.showLoading();
+    $.getJSON("https://mehak-carto.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20finalest%20&format=geojson&filename=finalest", function(data) {
+        var url = "https://mehak-carto.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20finalest%20&format=geojson&filename=finalest"
+            // chart.hideLoading();
+        console.log('for echart')
+        echarts.registerMap('US', data);
+        // console.log(data);
+        chart.setOption({
+            title: {
+                text: "ECharts entry example",
+
+
+            },
+            geo: [{
+                map: 'topo',
+
+            }],
+            xAxis: {
+                type: 'category',
+                data: ['Hero', 'Shanta', 'Deepak', 'Heroine']
+            },
+            yAxis: {
+                type: 'value'
+
+            },
+            series: [{
+
+
+                labels: '# of Votes',
+                type: 'line',
+                data: data,
+                backgroundColor: colors,
+
+            }]
+        });
+    });
+
+    chart.resize({
+        width: 800,
+        height: 400
+    });
 }
 
 

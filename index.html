@@ -11,7 +11,8 @@
     <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="echarts.js"></script>
-    <script src="./node_modules/geojson-parser"></script>
+    <script src="customed.js"></script>
+    <!-- <script src="./node_modules/geojson-parser"></script> -->
     <title>Document</title>
     <style>
         #map {
@@ -52,6 +53,13 @@
             position: absolute;
             top: 410px;
         }
+        /* #main {
+            width: 18px;
+            height: 18px;
+            float: left;
+            margin-right: 8px;
+            opacity: 0.7;
+        } */
     </style>
 </head>
 
@@ -85,63 +93,7 @@
         //     height: 400
         // });
         // mychart.setOption(option)
-        var chart = echarts.init(document.getElementById('main'));
-        var url = "https://mehak-carto.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20finalest%20&format=geojson&filename=finalest"
-        chart.showLoading();
-        $.getJSON("https://mehak-carto.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20finalest%20&format=geojson&filename=finalest", function(data) {
-            var url = "https://mehak-carto.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20finalest%20&format=geojson&filename=finalest"
-            chart.hideLoading();
-            console.log('for echart')
-            echarts.registerMap('US', data);
 
-            chart.setOption({
-                series: [{
-                    type: 'bar',
-                    data: url.data
-
-                }],
-                xAxis: {
-                    type: 'log',
-                    name: '人均收入',
-                    max: 100000,
-                    min: 300,
-                    nameGap: 25,
-                    nameLocation: 'middle',
-                    nameTextStyle: {
-                        fontSize: 18
-                    },
-                    splitLine: {
-                        show: false
-                    },
-                    axisLabel: {
-                        formatter: '{value} $'
-                    }
-                },
-                yAxis: {
-                    type: 'value',
-                    name: '平均寿命',
-                    max: 100,
-                    nameTextStyle: {
-                        fontSize: 18
-                    },
-                    splitLine: {
-                        show: false
-                    },
-                    axisLabel: {
-                        formatter: '{value} 岁'
-                    }
-                },
-            });
-        });
-        (url, {
-            Point: ['lat', 'lng']
-        }, function(geojson) {
-            console.log(JSON.stringify(geojson));
-        });
-        chart.resize({
-            width: 800,
-            height: 400
-        });
 
         // chart.addTo(map);
     </script>

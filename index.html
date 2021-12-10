@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="echarts.js"></script>
+    <script src="customed.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title> 
+</head>
+<body>
+    <div id="main"></div>
+    
+    <script type="text/javascript">
+    var mychart=echarts.init(document.getElementById('main'));
+    var option={
+        xAxis: {
+           type: 'category',
+           data: ['deepak', 'santa', 'bodha']
+        },
+        yAxis:{
+            type: 'value'
+        },
+        series:[
+            {
+                name: 'hello',
+                type: 'bar',
+                data: [70,92, 87]
+            }
+        ]
+    }
+    mychart.resize({
+        width: 800,
+        height: 400
+    });
+    mychart.setOption(option)
+
+</script>
+  <style>
+
+  </style>  
+     
+</body>
+</html>

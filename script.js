@@ -15,50 +15,59 @@ var newChart = function(labels, data) {
     };
     console.log('newChart colors', colors);
     var chart = echarts.init(document.getElementById('main'));
+
+
     // var chart = echarts.init(dom, 'customed');
-    var url = "https://mehak-carto.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20finalest%20&format=geojson&filename=finalest"
-        // chart.showLoading();
-    $.getJSON("https://mehak-carto.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20finalest%20&format=geojson&filename=finalest", function(data) {
-        var url = "https://mehak-carto.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20finalest%20&format=geojson&filename=finalest"
-            // chart.hideLoading();
-        console.log('for echart')
-        echarts.registerMap('US', data);
-        // console.log(data);
-        chart.setOption({
-            title: {
-                text: "ECharts entry example",
+    // var url = "https://mehak-carto.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20finalest%20&format=geojson&filename=finalest"
+    //     // chart.showLoading();
+    // $.getJSON("https://mehak-carto.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20finalest%20&format=geojson&filename=finalest", function(data) {
+    //     var url = "https://mehak-carto.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20finalest%20&format=geojson&filename=finalest"
 
 
-            },
-            geo: [{
-                map: 'topo',
+    initEchart();
+    // chart.hideLoading();
+    console.log('for echart');
 
-            }],
+    echarts.registerMap('US', data);
+    console.log(data);
+    // document.getElementById("main").innerHTML = data.features[i].properties.d_total;
+
+
+    function initEchart() {
+
+        var option;
+
+        option = {
             xAxis: {
                 type: 'category',
-                data: ['Hero', 'Shanta', 'Deepak', 'Heroine']
+                data: labels
             },
             yAxis: {
                 type: 'value'
-
             },
             series: [{
-
-
-                labels: '# of Votes',
-                type: 'line',
+                // data: [data.features[i].properties.d_total, 200, 150, 80, 70, 110, 130],
                 data: data,
-                backgroundColor: colors,
-
+                type: 'bar',
+                showBackground: true,
+                backgroundStyle: {
+                    color: 'rgba(180, 180, 180, 0.2)'
+                }
             }]
-        });
-    });
+        };
+
+        option && chart.setOption(option);
+    }
+
 
     chart.resize({
         width: 800,
         height: 400
     });
 }
+
+
+
 
 
 

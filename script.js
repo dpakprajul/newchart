@@ -14,7 +14,60 @@ var newChart = function(labels, data) {
         colors.push(backgroundColors[i]);
     };
     console.log('newChart colors', colors);
+    var chart = echarts.init(document.getElementById('main'));
+
+
+    // var chart = echarts.init(dom, 'customed');
+    // var url = "https://mehak-carto.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20finalest%20&format=geojson&filename=finalest"
+    //     // chart.showLoading();
+    // $.getJSON("https://mehak-carto.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20finalest%20&format=geojson&filename=finalest", function(data) {
+    //     var url = "https://mehak-carto.cartodb.com/api/v2/sql?q=SELECT%20*%20FROM%20finalest%20&format=geojson&filename=finalest"
+
+
+    initEchart();
+    // chart.hideLoading();
+    console.log('for echart');
+
+    echarts.registerMap('US', data);
+    console.log(data);
+    // document.getElementById("main").innerHTML = data.features[i].properties.d_total;
+
+
+    function initEchart() {
+
+        var option;
+
+        option = {
+            xAxis: {
+                type: 'category',
+                data: labels
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [{
+                // data: [data.features[i].properties.d_total, 200, 150, 80, 70, 110, 130],
+                data: data,
+                type: 'bar',
+                showBackground: true,
+                backgroundStyle: {
+                    color: 'rgba(180, 180, 180, 0.2)'
+                }
+            }]
+        };
+
+        option && chart.setOption(option);
+    }
+
+
+    chart.resize({
+        width: 800,
+        height: 400
+    });
 }
+
+
+
 
 
 
